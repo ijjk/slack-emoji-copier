@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const FormData = require('form-data')
 const {promisify} = require('util')
 
+const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 const outputDir = path.join(__dirname, 'emojis')
 
@@ -12,6 +13,8 @@ const accountToken = '' // update your token here
 const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
 
 ;(async () => {
+  await mkdir(outputDir)
+
   try {
     let page = 1
     while (true) {

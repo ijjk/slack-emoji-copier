@@ -5,6 +5,7 @@ const {promisify} = require('util')
 const {Sema} = require('async-sema')
 const FormData = require('form-data')
 
+const mkdir = promisify(fs.mkdir)
 const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const move = promisify(fs.rename)
@@ -14,8 +15,11 @@ const endPoint = 'https://zeit-hackaton.slack.com/api/emoji.add'
 
 ;(async () => {
   const emojisDir = path.join(__dirname, 'emojis')
+  const doneDir = path.join(__dirname, 'done')
   const emojis = await readdir(emojisDir)
   const sema = new Sema(5, { capacity: emojis.length })
+
+  await mkdir(doneDir)
 
   for (const emoji of emojis) {
     await sema.acquire()
@@ -49,7 +53,7 @@ const endPoint = 'https://zeit-hackaton.slack.com/api/emoji.add'
     await new Promise((resolve) => {
       setTimeout(() => resolve(), 250)
     })
-    await move(emojiPath, path.join(__dirname, 'done', emoji))
+    await move(emojiPath, path.join(doneDir, emoji))
     sema.release()
   }
 })()

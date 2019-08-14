@@ -10,7 +10,7 @@ const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const move = promisify(fs.rename)
 
-const accountToken = '' // update your token here
+const accountToken = process.env.SLACK_TOKEN || '' // update your token here
 const endPoint = 'https://zeit-hackaton.slack.com/api/emoji.add'
 
 ;(async () => {

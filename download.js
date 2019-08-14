@@ -9,7 +9,7 @@ const mkdir = promisify(fs.mkdir)
 const writeFile = promisify(fs.writeFile)
 const outputDir = path.join(__dirname, 'emojis')
 
-const accountToken = '' // update your token here
+const accountToken = process.env.SLACK_TOKEN || '' // update your token here
 const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
 
 ;(async () => {

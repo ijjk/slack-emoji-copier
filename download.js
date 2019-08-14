@@ -13,7 +13,9 @@ const accountToken = process.env.SLACK_TOKEN || '' // update your token here
 const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
 
 ;(async () => {
-  await mkdir(outputDir)
+  try {
+    await mkdir(outputDir)
+  } catch (_) {}
 
   try {
     let page = 1

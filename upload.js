@@ -19,7 +19,9 @@ const endPoint = 'https://zeit-hackaton.slack.com/api/emoji.add'
   const emojis = await readdir(emojisDir)
   const sema = new Sema(5, { capacity: emojis.length })
 
-  await mkdir(doneDir)
+  try {
+    await mkdir(doneDir)
+  } catch (_) {}
 
   for (const emoji of emojis) {
     await sema.acquire()

@@ -50,6 +50,9 @@ const endPoint = 'https://zeit-hackaton.slack.com/api/emoji.add'
     })
     const data = await res.json()
     if (data.error === 'ratelimited') throw new Error('rate limit')
+    if (data.ok === false) {
+      throw new Error(`Failed to upload ${name} ${JSON.stringify(data)}`)
+    }
     console.log('uploaded', name, res.ok, data);
 
     await new Promise((resolve) => {

@@ -17,6 +17,8 @@ const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
     await mkdir(outputDir)
   } catch (_) {}
 
+  const emojiMap = {}
+
   try {
     let page = 1
     while (true) {
@@ -42,13 +44,13 @@ const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
         const ext = path.extname(emoji.url)
         const emojiPath = path.join(outputDir, emoji.name + ext)
         console.log('downloading', emoji.url, 'to', emojiPath);
+        emojiMap[emoji.name] = emoji.url
 
         const imgRes = await fetch(emoji.url)
         console.log('downloaded', emojiPath);
 
         const data = await imgRes.buffer()
         await writeFile(emojiPath, data)
-
         sema.release()
       }
       page += 1
@@ -56,4 +58,6 @@ const endPoint = 'https://zeit.slack.com/api/emoji.adminList'
   } catch (err) {
     console.error('got error', err)
   }
+
+  await writeFile('emojis.json', JSON.stringify(emojiMap, null, 2))
 })()

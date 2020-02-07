@@ -4,8 +4,8 @@
 
 ## Usage
 
-1. Update `endpoint` and the `accountToken` in `download.js` and `upload.js`. Run `window.prompt("API token: ", window.boot_data.api_token)` in any logged in Slack page to get the token.
-2. `mkdir emojis done`
-3. `node ./download.js`
-4. `node ./upload.js`
+1. Update `EMOJI_LIST_API` and `EMOJI_ADD_API` in `dist/constants.js`
+2. Get your slack token by going to `WORKSPACE.slack.com/admin/emoji` and looking for the `emoji.adminList` request and the token is under the request's payload
+3. `SLACK_TOKEN='...' yarn download`
+4. `SLACK_TOKEN='...' yarn upload`
 5. Enjoy

@@ -11,7 +11,7 @@
   "dependencies": {
     "@zeit/fetch": "^5.2.0",
     "async-sema": "^3.0.0",
-    "form-data": "^3.0.0",
+    "form-data": "^3.0.4",
     "fs-extra": "^8.1.0",
     "node-fetch": "^2.6.0",
     "yaml": "^1.6.0"
